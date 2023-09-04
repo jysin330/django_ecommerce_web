@@ -414,6 +414,30 @@
                 </div>
 
                 {% for i in product|slice:"1:" %}
+
+                
+
+                <!-- <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/media/{{i.image}}"  class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{i.product_name}}</h5>
+                            <p class="card-text">{{i.product_des}}</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div> -->
+               
+                {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and forloop.counter < 4  %}
+                {{forloop.counter}}
+                </div><div class="carousel-item">
+
+                {% elif forloop.counter|divisibleby:4 and forloop.counter > 4 and not forloop.last %}
+                {{forloop.counter}}
+                </div><div class="carousel-item">
+                
+                {% else %}
+
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div class="card" style="width: 18rem;">
                         <img src="/media/{{i.image}}"  class="card-img-top" alt="...">
@@ -425,12 +449,9 @@
                     </div>
                 </div>
                 
-                {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
-                </div><div class="carousel-item">
-                    
                 
-                    
                 {% endif %}
+                
                 {% endfor %}
 
                 </div>

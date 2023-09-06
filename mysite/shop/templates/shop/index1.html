@@ -2,6 +2,7 @@
 
 
 {%block title%} Bootstrap demo {% endblock %}
+
 {%block css%}
 
 <style>
@@ -57,12 +58,12 @@
 
 
 <div class="container">
-   {% for product , nslide  , range in allproduct %}
-    <h1>{{product.0.category}}</h1>
+   {% for product , range , nslide  in allproduct %}
+    <h1 class="my-4">{{product.0.category}}</h1>
     <div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
         <ul class="carousel-indicators">
             <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
-            {% for i in range%}
+            {% for i in range %}
             
             <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}"></li>
             {% endfor %}

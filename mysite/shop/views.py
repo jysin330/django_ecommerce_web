@@ -6,13 +6,22 @@ from math import ceil
 
 
 def index(request):
-    products = Product.objects.all()
-    n = len(products)
-    nslide = n//4 + ceil((n/4)-(n//4))
+    # products = Product.objects.all()
 
     # params = {'product': products, 'nslide': nslide, 'range': range(nslide)}
-    allprod = [[products, nslide, range(1, nslide)], [
-        products, nslide, range(1, nslide)]]
+    # allprod = [[products, nslide, range(1, nslide)], [
+    #     products, nslide, range(1, nslide)]]
+    # params = {'allproduct': allprod}
+
+    allprod = []
+    allcats = Product.objects.values('category', 'id')
+    cats = {item['category'] for item in allcats}
+    for cat in cats:
+        prod = Product.objects.filter(category=cat)
+        n = len(prod)
+        nslide = n//4 + ceil((n/4)-(n//4))
+        allprod.append([prod, range(1, nslide), nslide])
+
     params = {'allproduct': allprod}
 
     return render(request, 'shop/index1.html', params)

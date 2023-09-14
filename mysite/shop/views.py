@@ -44,7 +44,7 @@ def search(request):
 
 
 def productview(request):
-    return render(request, 'shop/productview.html')
+    return render(request, 'shop/productview1.html')
 
 
 def checkout(request):

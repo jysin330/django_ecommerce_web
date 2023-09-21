@@ -24,9 +24,43 @@
         </div>
         <div class="col-md-8">
             <h5>{{product.product_name}}</h5>
+            <h5><b>MRP RS.{{product.price}}</b></h5>
             <p>{{product.product_des}}</p>
         </div>
 
     </div>
 </div>
+{% endblock %}
+
+{% block js %} 
+<script>
+
+
+    if (localStorage.getItem("cart")== null){
+        var cart ={}
+    }
+    else{
+        cart =JSON.parse(localStorage.getItem('cart'))
+        document.getElementById('cart').innerHTML= Object.keys(cart).length
+    }
+    
+    $('.cart').click(function(){
+        var idstr = this.id.toString()
+        console.log("clicked")
+
+        if (cart[idstr] != undefined){
+            cart[idstr]= cart[idstr]+1;
+        }
+        else{
+            cart[idstr]= 1;
+        }
+
+     
+        localStorage.setItem("cart", JSON.stringify(cart))
+        
+    });
+    $('#popcart').popover()
+    document.getElementById("popcart").setAttribute('data-content','<h1>cart</h1>')
+</script>
+
 {% endblock %}

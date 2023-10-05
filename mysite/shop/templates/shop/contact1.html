@@ -1,13 +1,28 @@
 {% extends 'shop/basic.html' %}
 
 {%block title%} Title of contact us {% endblock %}
-{% block css %}
-<style>
-    body {
-        background-color: blue;
-    }
-</style>
-{% endblock %}
+
 {% block body %}
-<h1>this is contact us</h1>
+<div class="container my-5">
+    <h1 class="my-5">Contact us regardig any query</h1>
+    <form action="/shop/contact/" method="post">{% csrf_token %}
+        <div class="mb-3 form-group">
+            <label for="name" class="form-label">Name : </label>
+            <input type="name" name = "name" class="form-control" id="name" placeholder="Enter your name">
+          </div>
+        <div class="mb-3 form-group">
+          <label for="email" class="form-label">Email : </label>
+          <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email">
+        </div>
+        <div class="mb-3 form-group">
+            <label for="contact" class="form-label">Contact : </label>
+            <input type="tel" name="contact" class="form-control" id="contact" placeholder="Enter your contact">
+          </div>
+          <div class="mb-3 form-group">
+            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+            <textarea class="form-control" name ="desc" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</div>
 {% endblock %}

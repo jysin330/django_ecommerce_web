@@ -151,7 +151,7 @@
     // if the add to cart button is clicked , add/increment the item
     $('.cart').click(function(){
         var idstr = this.id.toString()
-        console.log("clicked")
+        //console.log("clicked")
 
         if (cart[idstr] != undefined){
             cart[idstr]= cart[idstr]+1;
@@ -160,8 +160,8 @@
             cart[idstr]= 1;
         }
         updateCart(cart)
-        console.log(cart)
-        localStorage.setItem("cart", JSON.stringify(cart))
+        //console.log(cart)
+        
         
     });
 
@@ -171,18 +171,33 @@
 
 
     function updateCart(cart){
-        console.log(cart)
+        //console.log(cart)
         for(var item in cart){
             document.getElementById('div'+item).innerHTML= "<button id='minus" +item +"'class='btn btn-primary minus'> - </button> <span id='val" + item + "'''>" + cart[item] + "</span> <button id='plus" + item + "' class= 'btn btn-primary plus'> + </button>";
         }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        document.getElementById('cart').innerHTML= Object.keys(cart).length;
     }
 
     // if plus or minus button is clicked, change the cart aswell as the display value
     $('.divpr').on('click', 'button.minus', function(){
-        console.log("minus click")
+        //console.log("minus click");
+        let a= this.id.slice(7,);
+
+        //console.log(a);
+        cart['pr'+a]=cart['pr'+a]-1;
+        cart['pr'+a]= Math.max(0,cart['pr'+a]);
+        document.getElementById('valpr'+a).innerHTML= cart['pr'+a];
+        updateCart(cart)
     });
     $('.divpr').on('click', 'button.plus', function(){
-        console.log("plus click");
+        //console.log("plus click");
+        let a= this.id.slice(6,);
+
+        //console.log(a);
+        cart['pr'+a]=cart['pr'+a]+1;
+        document.getElementById('valpr'+a).innerHTML= cart['pr'+a];
+        updateCart(cart)
     })
 </script>
 

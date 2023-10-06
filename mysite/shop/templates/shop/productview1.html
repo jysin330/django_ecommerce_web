@@ -35,7 +35,7 @@
 {% block js %} 
 <script>
 
-
+ // find out the cart item from localstorage
     if (localStorage.getItem("cart")== null){
         var cart ={}
     }
@@ -44,6 +44,8 @@
         document.getElementById('cart').innerHTML= Object.keys(cart).length
     }
     
+
+    // if the add to cart button is clicked , add/increment the item
     $('.cart').click(function(){
         var idstr = this.id.toString()
         console.log("clicked")
@@ -59,6 +61,8 @@
         localStorage.setItem("cart", JSON.stringify(cart))
         
     });
+
+    // Add popover cart
     $('#popcart').popover()
     document.getElementById("popcart").setAttribute('data-content','<h1>cart</h1>')
 </script>

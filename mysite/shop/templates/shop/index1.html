@@ -95,14 +95,15 @@
                 {% for i in product %}
         
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card align-items-center" style="width: 18rem;">
                         <img src="/media/{{i.image}}"  class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{i.product_name}}</h5>
                             <p class="card-text">{{i.product_des}}</p>
+                            <span id="divpr{{i.id}}" class="divpr">
                             <button id="pr{{i.id}}" href="#" class="btn btn-primary cart">add cart</button>
+                        </span>
                             <a href="/shop/productview/{{i.id}}"><button id="vr{{i.id}}" class="btn btn-primary cart">quick view</button></a>
-                            
                         </div>
                     </div>
                 </div>
@@ -137,15 +138,17 @@
 {% block js %} 
 <script>
 
-
+    // find out the cart item from localstorage
     if (localStorage.getItem("cart")== null){
         var cart ={}
     }
     else{
         cart =JSON.parse(localStorage.getItem('cart'))
         document.getElementById('cart').innerHTML= Object.keys(cart).length
+        updateCart(cart)
     }
     
+    // if the add to cart button is clicked , add/increment the item
     $('.cart').click(function(){
         var idstr = this.id.toString()
         console.log("clicked")
@@ -156,13 +159,31 @@
         else{
             cart[idstr]= 1;
         }
-
+        updateCart(cart)
         console.log(cart)
         localStorage.setItem("cart", JSON.stringify(cart))
         
     });
+
+     // Add popover cart
     $('#popcart').popover()
     document.getElementById("popcart").setAttribute('data-content','<h1>cart</h1>')
+
+
+    function updateCart(cart){
+        console.log(cart)
+        for(var item in cart){
+            document.getElementById('div'+item).innerHTML= "<button id='minus" +item +"'class='btn btn-primary minus'> - </button> <span id='val" + item + "'''>" + cart[item] + "</span> <button id='plus" + item + "' class= 'btn btn-primary plus'> + </button>";
+        }
+    }
+
+    // if plus or minus button is clicked, change the cart aswell as the display value
+    $('.divpr').on('click', 'button.minus', function(){
+        console.log("minus click")
+    });
+    $('.divpr').on('click', 'button.plus', function(){
+        console.log("plus click");
+    })
 </script>
 
 {% endblock %}
